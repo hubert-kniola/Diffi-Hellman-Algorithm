@@ -1,0 +1,16 @@
+C:\Users\Dell\source\repos\Diffi-HellmanAlgorithm\Diffi-HellmanAlgorithm\bin\Debug\netcoreapp3.1\Diffi-HellmanAlgorithm.exe
+C:\Users\Dell\source\repos\Diffi-HellmanAlgorithm\Diffi-HellmanAlgorithm\bin\Debug\netcoreapp3.1\Diffi-HellmanAlgorithm.deps.json
+C:\Users\Dell\source\repos\Diffi-HellmanAlgorithm\Diffi-HellmanAlgorithm\bin\Debug\netcoreapp3.1\Diffi-HellmanAlgorithm.runtimeconfig.json
+C:\Users\Dell\source\repos\Diffi-HellmanAlgorithm\Diffi-HellmanAlgorithm\bin\Debug\netcoreapp3.1\Diffi-HellmanAlgorithm.runtimeconfig.dev.json
+C:\Users\Dell\source\repos\Diffi-HellmanAlgorithm\Diffi-HellmanAlgorithm\bin\Debug\netcoreapp3.1\Diffi-HellmanAlgorithm.dll
+C:\Users\Dell\source\repos\Diffi-HellmanAlgorithm\Diffi-HellmanAlgorithm\bin\Debug\netcoreapp3.1\Diffi-HellmanAlgorithm.pdb
+C:\Users\Dell\source\repos\Diffi-HellmanAlgorithm\Diffi-HellmanAlgorithm\bin\Debug\netcoreapp3.1\Calculations.dll
+C:\Users\Dell\source\repos\Diffi-HellmanAlgorithm\Diffi-HellmanAlgorithm\bin\Debug\netcoreapp3.1\Calculations.pdb
+C:\Users\Dell\source\repos\Diffi-HellmanAlgorithm\Diffi-HellmanAlgorithm\obj\Debug\netcoreapp3.1\Diffi-HellmanAlgorithm.csprojAssemblyReference.cache
+C:\Users\Dell\source\repos\Diffi-HellmanAlgorithm\Diffi-HellmanAlgorithm\obj\Debug\netcoreapp3.1\Diffi-HellmanAlgorithm.AssemblyInfoInputs.cache
+C:\Users\Dell\source\repos\Diffi-HellmanAlgorithm\Diffi-HellmanAlgorithm\obj\Debug\netcoreapp3.1\Diffi-HellmanAlgorithm.AssemblyInfo.cs
+C:\Users\Dell\source\repos\Diffi-HellmanAlgorithm\Diffi-HellmanAlgorithm\obj\Debug\netcoreapp3.1\Diffi-HellmanAlgorithm.csproj.CoreCompileInputs.cache
+C:\Users\Dell\source\repos\Diffi-HellmanAlgorithm\Diffi-HellmanAlgorithm\obj\Debug\netcoreapp3.1\Diffi-HellmanAlgorithm.csproj.CopyComplete
+C:\Users\Dell\source\repos\Diffi-HellmanAlgorithm\Diffi-HellmanAlgorithm\obj\Debug\netcoreapp3.1\Diffi-HellmanAlgorithm.dll
+C:\Users\Dell\source\repos\Diffi-HellmanAlgorithm\Diffi-HellmanAlgorithm\obj\Debug\netcoreapp3.1\Diffi-HellmanAlgorithm.pdb
+C:\Users\Dell\source\repos\Diffi-HellmanAlgorithm\Diffi-HellmanAlgorithm\obj\Debug\netcoreapp3.1\Diffi-HellmanAlgorithm.genruntimeconfig.cache

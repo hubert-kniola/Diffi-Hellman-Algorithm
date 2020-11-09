@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "Diffi-HellmanAlgorithm/1.0.0": {
+        "dependencies": {
+          "Calculations": "1.0.0"
+        },
+        "runtime": {
+          "Diffi-HellmanAlgorithm.dll": {}
+        }
+      },
+      "Calculations/1.0.0": {
+        "runtime": {
+          "Calculations.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Diffi-HellmanAlgorithm/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Calculations/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
