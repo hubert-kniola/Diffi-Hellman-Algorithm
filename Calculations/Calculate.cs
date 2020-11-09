@@ -23,46 +23,46 @@ namespace Calculations
             List<BigInteger> listG;
 
             sw.Start();
-            n = generateNumber(1000);
+            n = GeneratePrime();
             Console.WriteLine(n);
             sw.Stop();
             timeN = sw.Elapsed;
             sw.Start();
-            listG = primitiveRoots(n);
+            listG = PrimitiveRoots(n);
             g = listG.First();
             sw.Stop();
             timeG = sw.Elapsed;
 
-            Console.WriteLine($"Primitive root: {isPrimitiveRoot(g, n)}");
+            Console.WriteLine($"Primitive root: {IsPrimitiveRoot(g, n)}");
             Console.WriteLine($"n: {n}, generating [ms]: {timeN}");
             Console.WriteLine($"g: {g}, generating [ms]: {timeG}");
             BigInteger x = 0;
             BigInteger y = 0;
             sw.Start();
-            var ix = generateXY(10, 100);//male x
+            var ix = GenerateXY(10, 100);//male x
             sw.Stop();
             Console.WriteLine($"x generating [ms]: {sw.Elapsed}");
             sw.Start();
-            var iy = generateXY(10, 100); //male y
+            var iy = GenerateXY(10, 100); //male y
             sw.Stop();
             Console.WriteLine($"y generating [ms]: {sw.Elapsed}");
 
             sw.Start();
-            x = genPrivateKey(n, ix, g); //duze X
+            x = GenKey(n, ix, g); //duze X
             sw.Stop();
             Console.WriteLine($"Private Key: {x}, generating [ms]: {sw.Elapsed}");
             sw.Start();
-            y = genPublicKey(n, iy, g); //duze Y
+            y = GenKey(n, iy, g); //duze Y
             sw.Stop();
             Console.WriteLine($"Public Key: {y}, generating [ms]: {sw.Elapsed}");
 
 
-            var kA = calculateK(y, ix, n);
-            var kB = calculateK(x, iy, n);
+            var kA = GenK(y, ix, n);
+            var kB = GenK(x, iy, n);
             Console.WriteLine($"kA: {kA}, kB: {kB}");
         }
 
-        private static BigInteger generateNumber(BigInteger N)
+        private static BigInteger GenerateNumber(BigInteger N)
         {
             Random rnx = new Random();
             BigInteger sd = 0;
@@ -72,7 +72,7 @@ namespace Calculations
             return sd;
         }
 
-        private static List<BigInteger> primitiveRoots(BigInteger modulo)
+        private static List<BigInteger> PrimitiveRoots(BigInteger modulo)
         {
             var coprimes = new List<BigInteger>();
 
@@ -85,14 +85,13 @@ namespace Calculations
             }
 
             var primitiveRoots = new List<BigInteger>();
-
             for (int j = 1; j < modulo; j++)
             {
                 var resultSet = new List<BigInteger>();
 
-                for (int i = 1; i < modulo; i++)
+                for (int k = 1; k < modulo; k++)
                 {
-                    resultSet.Add(i % modulo);
+                    resultSet.Add(BigInteger.Pow(j, k) % modulo);
                 }
 
                 if (coprimes.TrueForAll(resultSet.Contains))
@@ -104,7 +103,7 @@ namespace Calculations
             return primitiveRoots;
         }
 
-        private static bool isPrimitiveRoot(BigInteger modulo, BigInteger arg)
+        private static bool IsPrimitiveRoot(BigInteger modulo, BigInteger arg)
         {
             var coprimes = new List<BigInteger>();
 
@@ -126,26 +125,42 @@ namespace Calculations
             return coprimes.TrueForAll(resultSet.Contains);
         }
 
-        private static BigInteger generateXY(int min, int max)
+        private static BigInteger GeneratePrime()
+        {
+            BigInteger x;
+            do
+                x = GenerateNumber(1000);
+            while (!CheckPrime(x));
+            return x;
+        }
+
+        private static bool CheckPrime(BigInteger n)
+        {
+            var isPrime = true;
+            var sqrt = Math.Sqrt((int)n);
+            if ((n % 2) == 0)
+                isPrime = false;
+            for (var i = 3; i <= sqrt; i += 2)
+                if ((n % i) == 0) isPrime = false;
+            return isPrime;
+        }
+
+        private static BigInteger GenerateXY(int min, int max)
         {
             var rnx = new Random();
             return rnx.Next(min, max);
         }
 
-        private static BigInteger genPrivateKey(BigInteger n, BigInteger ix, BigInteger g)
+        private static BigInteger GenKey(BigInteger n, BigInteger ix, BigInteger g)
         {
             return BigInteger.Pow(g, (int)ix) % n;
         }
 
-        private static BigInteger genPublicKey(BigInteger n, BigInteger iy, BigInteger g)
-        {
-            return BigInteger.Pow(g, (int)iy) % n;
-        }
-
-        private static BigInteger calculateK(BigInteger basis, BigInteger pow, BigInteger n)
+        private static BigInteger GenK(BigInteger basis, BigInteger pow, BigInteger n)
         {
             return BigInteger.Pow(basis, (int)pow) % n;
         }
+
 
         /*private static BigInteger CheckInteger()
         {
