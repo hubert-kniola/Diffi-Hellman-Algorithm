@@ -20,39 +20,41 @@ namespace Calculations
             Stopwatch sw = Stopwatch.StartNew();
             BigInteger n, g;
             TimeSpan timeN, timeG;
-            do
-            {
-                sw.Start();
-                n = generateNumber(1234);
-                sw.Stop();
-                timeN = sw.Elapsed;
-                sw.Start();
-                g = primitiveRoots(n).First();
-                sw.Stop();
-                timeG = sw.Elapsed;
+            List<BigInteger> listG;
 
-            } while (isPrimitiveRoot(g, n));
-            Console.WriteLine($"n generating [ms]: {timeN}");
-            Console.WriteLine($"g generating [ms]: {timeG}");
+            sw.Start();
+            n = generateNumber(1000);
+            Console.WriteLine(n);
+            sw.Stop();
+            timeN = sw.Elapsed;
+            sw.Start();
+            listG = primitiveRoots(n);
+            g = listG.First();
+            sw.Stop();
+            timeG = sw.Elapsed;
+
+            Console.WriteLine($"Primitive root: {isPrimitiveRoot(g, n)}");
+            Console.WriteLine($"n: {n}, generating [ms]: {timeN}");
+            Console.WriteLine($"g: {g}, generating [ms]: {timeG}");
             BigInteger x = 0;
             BigInteger y = 0;
             sw.Start();
-            var ix = generateXY(10000, 1000000);//male x
+            var ix = generateXY(10, 100);//male x
             sw.Stop();
             Console.WriteLine($"x generating [ms]: {sw.Elapsed}");
             sw.Start();
-            var iy = generateXY(10000, 1000000); //male y
+            var iy = generateXY(10, 100); //male y
             sw.Stop();
             Console.WriteLine($"y generating [ms]: {sw.Elapsed}");
 
             sw.Start();
             x = genPrivateKey(n, ix, g); //duze X
             sw.Stop();
-            Console.WriteLine($"Private Key generating [ms]: {sw.Elapsed}");
+            Console.WriteLine($"Private Key: {x}, generating [ms]: {sw.Elapsed}");
             sw.Start();
             y = genPublicKey(n, iy, g); //duze Y
             sw.Stop();
-            Console.WriteLine($"Public Key generating [ms]: {sw.Elapsed}");
+            Console.WriteLine($"Public Key: {y}, generating [ms]: {sw.Elapsed}");
 
 
             var kA = calculateK(y, ix, n);
@@ -65,7 +67,7 @@ namespace Calculations
             Random rnx = new Random();
             BigInteger sd = 0;
             do
-                sd = rnx.Next();
+                sd = rnx.Next(100, 10000);
             while (BigInteger.GreatestCommonDivisor(sd, N) != 1);
             return sd;
         }
@@ -101,8 +103,6 @@ namespace Calculations
 
             return primitiveRoots;
         }
-
-    
 
         private static bool isPrimitiveRoot(BigInteger modulo, BigInteger arg)
         {
