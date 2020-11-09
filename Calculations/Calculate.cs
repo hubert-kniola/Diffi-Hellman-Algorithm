@@ -24,42 +24,104 @@ namespace Calculations
 
             sw.Start();
             n = GeneratePrime();
-            Console.WriteLine(n);
             sw.Stop();
             timeN = sw.Elapsed;
             sw.Start();
-            listG = PrimitiveRoots(n);
-            g = listG.First();
+            g = FindPrimitive(n);
             sw.Stop();
             timeG = sw.Elapsed;
 
             Console.WriteLine($"Primitive root: {IsPrimitiveRoot(g, n)}");
-            Console.WriteLine($"n: {n}, generating [ms]: {timeN}");
-            Console.WriteLine($"g: {g}, generating [ms]: {timeG}");
+            Console.WriteLine($"Value of n: {n} | Generation time [ms]: {timeN}");
+            Console.WriteLine($"Value of g: {g} | Generation time [ms]: {timeG}");
             BigInteger x = 0;
             BigInteger y = 0;
             sw.Start();
-            var ix = GenerateXY(10, 100);//male x
+            var ix = GenerateXY(10, 100); //male x
             sw.Stop();
-            Console.WriteLine($"x generating [ms]: {sw.Elapsed}");
+            Console.WriteLine($"Value of x: {ix} | Generation time [ms]: {sw.Elapsed}");
             sw.Start();
             var iy = GenerateXY(10, 100); //male y
             sw.Stop();
-            Console.WriteLine($"y generating [ms]: {sw.Elapsed}");
+            Console.WriteLine($"Value of y: {iy} | Generation time [ms]: {sw.Elapsed}");
 
             sw.Start();
-            x = GenKey(n, ix, g); //duze X
+            x = GenKey(g, ix, n); //duze X
             sw.Stop();
             Console.WriteLine($"Private Key: {x}, generating [ms]: {sw.Elapsed}");
             sw.Start();
-            y = GenKey(n, iy, g); //duze Y
+            y = GenKey(g, iy, n); //duze Y
             sw.Stop();
             Console.WriteLine($"Public Key: {y}, generating [ms]: {sw.Elapsed}");
 
 
-            var kA = GenK(y, ix, n);
-            var kB = GenK(x, iy, n);
-            Console.WriteLine($"kA: {kA}, kB: {kB}");
+            var kA = GenKey(y, ix, n);
+            var kB = GenKey(x, iy, n);
+            Console.WriteLine($"kA: {kA}\nkB: {kB}");
+        }
+
+        private static BigInteger Power(BigInteger x, BigInteger y, BigInteger p)
+        {
+            BigInteger res = 1;
+            x = x % p;
+
+            while (y > 0)
+            {
+                if (y % 2 == 1)
+                    res = (res * x) % p;
+
+                y = y >> 1;
+                x = (x * x) % p;
+            }
+            return res;
+        }
+
+        private static void FindFactors(List<BigInteger> s, BigInteger n)
+        {
+            while (n % 2 == 0)
+            {
+                s.Add(2);
+                n = n / 2;
+            }
+
+            for (int i = 3; i <= Math.Sqrt((int)n); i = i + 2)
+            {
+                while (n % i == 0)
+                {
+                    s.Add(i);
+                    n = n / i;
+                }
+            }
+
+            if (n > 2)
+                s.Add(n);
+        }
+
+        private static BigInteger FindPrimitive(BigInteger n)
+        {
+            List<BigInteger> s = new List<BigInteger>();
+
+            if (CheckPrime(n) == false)
+                return -1;
+
+            BigInteger phi = n - 1;
+            FindFactors(s, phi);
+
+            for (int r = 2; r <= phi; r++)
+            {
+                bool flag = false;
+                foreach (int a in s)
+                {
+                    if (Power(r, phi/a, n) == 1)
+                    {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (flag == false)
+                    return r;
+            }
+            return -1;
         }
 
         private static BigInteger GenerateNumber(BigInteger N)
@@ -67,7 +129,7 @@ namespace Calculations
             Random rnx = new Random();
             BigInteger sd = 0;
             do
-                sd = rnx.Next(100, 10000);
+                sd = rnx.Next(100, 10000000);
             while (BigInteger.GreatestCommonDivisor(sd, N) != 1);
             return sd;
         }
@@ -151,7 +213,7 @@ namespace Calculations
             return rnx.Next(min, max);
         }
 
-        private static BigInteger GenKey(BigInteger n, BigInteger ix, BigInteger g)
+        private static BigInteger GenKey(BigInteger g, BigInteger ix, BigInteger n)
         {
             return BigInteger.Pow(g, (int)ix) % n;
         }
@@ -160,16 +222,5 @@ namespace Calculations
         {
             return BigInteger.Pow(basis, (int)pow) % n;
         }
-
-
-        /*private static BigInteger CheckInteger()
-        {
-            BigInteger x = 0;
-            string readString = Console.ReadLine();
-            if (BigInteger.TryParse(readString, out x))
-                return x;
-            else
-                return 0;
-        }*/
     }
 }
