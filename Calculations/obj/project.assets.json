@@ -8,19 +8,19 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\Dell\\.nuget\\packages\\": {}
+    "C:\\Users\\hubkn\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Dell\\source\\repos\\Diffi-HellmanAlgorithm\\Calculations\\Calculations.csproj",
+      "projectUniqueName": "C:\\Users\\hubkn\\Desktop\\Diffi-Hellman-Algorithm\\Calculations\\Calculations.csproj",
       "projectName": "Calculations",
-      "projectPath": "C:\\Users\\Dell\\source\\repos\\Diffi-HellmanAlgorithm\\Calculations\\Calculations.csproj",
-      "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Dell\\source\\repos\\Diffi-HellmanAlgorithm\\Calculations\\obj\\",
+      "projectPath": "C:\\Users\\hubkn\\Desktop\\Diffi-Hellman-Algorithm\\Calculations\\Calculations.csproj",
+      "packagesPath": "C:\\Users\\hubkn\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\hubkn\\Desktop\\Diffi-Hellman-Algorithm\\Calculations\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\hubkn\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
