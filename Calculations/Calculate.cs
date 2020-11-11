@@ -79,6 +79,19 @@ namespace Calculations
             return -1;
         }
 
+        /// <summary>
+        /// Metoda sprawdzająca parzystość liczby
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        static bool IsOdd(int number)
+        {
+            if (number % 2 != 0)
+                return true;
+            else
+                return false;
+        }
+
         private static List<BigInteger> PrimitiveRoots(BigInteger g)
         {
             var coprimes = new List<BigInteger>();
@@ -138,7 +151,6 @@ namespace Calculations
             return coprimes.TrueForAll(resultSet.Contains);
         }
 
-
         /// <summary>
         /// Metoda sprawdzająca czy liczba jest pierwsza
         /// </summary>
@@ -154,7 +166,7 @@ namespace Calculations
                 if ((n % i) == 0) isPrime = false;
             return isPrime;
         }
-#endregion
+        #endregion
 
         #region NumberGenerators
         /// <summary>
@@ -197,14 +209,14 @@ namespace Calculations
 
         #region MainFunction
         /// <summary>
-        /// Funkcja główna programu
+        /// Funkcja główna programu wyliczająca wartośc klucza dla 2 osób
         /// </summary>
         public static void difiAlgorithm()
         {
             Stopwatch sw = Stopwatch.StartNew();
-            BigInteger n, g;
+            BigInteger n = 0;
+            BigInteger g = 0;
             TimeSpan timeN, timeG;
-            List<BigInteger> listG;
 
             #region NG_Generate
             sw.Start();
@@ -216,14 +228,14 @@ namespace Calculations
             sw.Stop();
             timeG = sw.Elapsed;
 
-            Console.WriteLine($"Primitive root: {IsPrimitiveRoot(g, n)}");
+            var yesOrNo = IsPrimitiveRoot(g, n);
+            Console.WriteLine($"=== 2 USERS ===\nGenerated G is primitive root: {yesOrNo}");
+            if (yesOrNo == false) return;
             Console.WriteLine($"Value of n: {n} | Generation time [ms]: {timeN}");
             Console.WriteLine($"Value of g: {g} | Generation time [ms]: {timeG}");
             #endregion
 
-            #region LowercaseXY_Generate
-            BigInteger x = 0;
-            BigInteger y = 0;
+            #region LowercaseXY_Generate           
             sw.Start();
             var ix = GenerateXY(10, 10000); //male x
             sw.Stop();
@@ -235,20 +247,118 @@ namespace Calculations
             #endregion
 
             #region CapitalXY_Generate
+            BigInteger x, y;
             sw.Start();
             x = GenKey(g, ix, n); //duze X
             sw.Stop();
-            Console.WriteLine($"Private Key: {x}, generating [ms]: {sw.Elapsed}");
+            Console.WriteLine($"Private Key: {x} | Generation time [ms]: {sw.Elapsed}");
             sw.Start();
             y = GenKey(g, iy, n); //duze Y
             sw.Stop();
-            Console.WriteLine($"Public Key: {y}, generating [ms]: {sw.Elapsed}");
+            Console.WriteLine($"Public Key: {y} | Generation time [ms]: {sw.Elapsed}");
             #endregion
 
+            #region FinalCalculation
             var kA = GenKey(y, ix, n);
             var kB = GenKey(x, iy, n);
             Console.WriteLine($"kA: {kA}\nkB: {kB}");
+            #endregion
         }
         #endregion
+
+        /// <summary>
+        /// Funkcja główna wyliczająca wartośc klucza dla grupy 4 osób
+        /// </summary>
+        public static void difiForGroup()
+        {
+            Stopwatch sw = Stopwatch.StartNew();
+            BigInteger n, g;
+            TimeSpan timeN, timeG;
+
+            #region NG_Generate
+            sw.Start();
+            n = GeneratePrime();
+            sw.Stop();
+            timeN = sw.Elapsed;
+            sw.Start();
+            g = FindPrimitive(n);
+            sw.Stop();
+            timeG = sw.Elapsed;
+
+            var yesOrNo = IsPrimitiveRoot(g, n);
+            Console.WriteLine($"=== 5 USERS ===\nGenerated G is primitive root: {yesOrNo}");
+            if (yesOrNo == false) return;
+            Console.WriteLine($"Value of n: {n} | Generation time [ms]: {timeN}");
+            Console.WriteLine($"Value of g: {g} | Generation time [ms]: {timeG}");
+            #endregion
+
+            #region LowercaseXYZW_Generate        
+            Console.WriteLine("===========================================");
+            sw.Start();
+            var ix = GenerateXY(10, 10000); //male x
+            sw.Stop();
+            Console.WriteLine($"Value of x: {ix} | Generation time [ms]: {sw.Elapsed}");
+            sw.Start();
+            var iy = GenerateXY(10, 10000); //male y
+            sw.Stop();
+            Console.WriteLine($"Value of y: {iy} | Generation time [ms]: {sw.Elapsed}");
+            sw.Start();
+            var iz = GenerateXY(10, 10000); //male z
+            sw.Stop();
+            Console.WriteLine($"Value of z: {iz} | Generation time [ms]: {sw.Elapsed}");
+            sw.Start();
+            var iw = GenerateXY(10, 10000); //male w
+            sw.Stop();
+            Console.WriteLine($"Value of w: {iw} | Generation time [ms]: {sw.Elapsed}");
+            Console.WriteLine("===========================================");
+            #endregion
+    
+            #region CapitalXYZW_Generate
+            BigInteger x, y, z, w, q, k, l, m;
+            sw.Start();
+            x = GenKey(g, ix, n); //duze X
+            sw.Stop();
+            Console.WriteLine($"Private Key: {x} | Generation time [ms]: {sw.Elapsed}");
+            sw.Start();
+            y = GenKey(g, iy, n); //duze Y
+            sw.Stop();
+            Console.WriteLine($"Public Key: {y} | Generation time [ms]: {sw.Elapsed}");
+            sw.Start();
+            z = GenKey(g, iz, n); //duze Z
+            sw.Stop();
+            Console.WriteLine($"Public Key: {z} | Generation time [ms]: {sw.Elapsed}");
+            sw.Start();
+            w = GenKey(g, iw, n); //duze W
+            sw.Stop();
+            Console.WriteLine($"Public Key: {w} | Generation time [ms]: {sw.Elapsed}");
+            Console.WriteLine("===========================================");
+            #endregion
+
+            #region FinalCalculation
+            var kA = GenKey(y, ix, n);
+            var kB = GenKey(x, iy, n);
+            var kC = GenKey(z, iw, n);
+            var kD = GenKey(w, iz, n);
+
+            Console.WriteLine($"kA: {kA}\nkB: {kB}\nkC: {kC}\nkD: {kD}");
+
+            ix = kB / 6; //obliczanie nowych wartości małej x z otrzymanej wartości klucza
+            iy = kD / 6; //obliczanie nowych wartości małej y z otrzymanej wartości klucza
+            var newX = GenKey(g, ix, n); //generowanie nowego duzego X
+            var newY = GenKey(g, iy, n); //generowanie nowego duzego Y
+
+            Console.WriteLine($"newX: {newX}\nnewY: {newY}");
+
+            sw.Start();
+            var kOne = GenKey(newY, ix, n);
+            sw.Stop();
+            Console.WriteLine($"kOne: {kOne} | Generation time [ms]: {sw.Elapsed}");
+            sw.Start();
+            var kTwo = GenKey(newX, iy, n);
+            sw.Stop();
+            Console.WriteLine($"kTwo: {kTwo} | Generation time [ms]: {sw.Elapsed}");
+            #endregion
+        }
+
     }
 }

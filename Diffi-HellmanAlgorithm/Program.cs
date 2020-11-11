@@ -8,6 +8,7 @@ namespace Diffi_HellmanAlgorithm
         static void Main(string[] args)
         {
             Calculate.difiAlgorithm();
+            Calculate.difiForGroup();
 
             Console.ReadKey();
         }
