@@ -55,14 +55,15 @@ namespace Calculations
         private static BigInteger FindPrimitive(BigInteger n)
         {
             List<BigInteger> s = new List<BigInteger>();
+            //var rnx = new Random();
 
             if (CheckPrime(n) == false)
                 return -1;
 
             BigInteger phi = n - 1;
             FindFactors(s, phi);
-
-            for (int r = 2; r <= phi; r++)
+            //var index = rnx.Next(s.Count);
+            for (int r = 100; r <= phi; r++)
             {
                 bool flag = false;
                 foreach (int a in s)
@@ -219,14 +220,17 @@ namespace Calculations
             TimeSpan timeN, timeG;
 
             #region NG_Generate
-            sw.Start();
-            n = GeneratePrime();
-            sw.Stop();
-            timeN = sw.Elapsed;
-            sw.Start();
-            g = FindPrimitive(n);
-            sw.Stop();
-            timeG = sw.Elapsed;
+            do
+            {
+                sw.Start();
+                n = GeneratePrime();
+                sw.Stop();
+                timeN = sw.Elapsed;
+                sw.Start();
+                g = FindPrimitive(n);
+                sw.Stop();
+                timeG = sw.Elapsed;
+            } while (!IsPrimitiveRoot(g, n));
 
             var yesOrNo = IsPrimitiveRoot(g, n);
             Console.WriteLine($"=== 2 USERS ===\nGenerated G is primitive root: {yesOrNo}");
@@ -276,17 +280,20 @@ namespace Calculations
             TimeSpan timeN, timeG;
 
             #region NG_Generate
-            sw.Start();
-            n = GeneratePrime();
-            sw.Stop();
-            timeN = sw.Elapsed;
-            sw.Start();
-            g = FindPrimitive(n);
-            sw.Stop();
-            timeG = sw.Elapsed;
+            do
+            {
+                sw.Start();
+                n = GeneratePrime();
+                sw.Stop();
+                timeN = sw.Elapsed;
+                sw.Start();
+                g = FindPrimitive(n);
+                sw.Stop();
+                timeG = sw.Elapsed;
+            } while (!IsPrimitiveRoot(g, n));
 
             var yesOrNo = IsPrimitiveRoot(g, n);
-            Console.WriteLine($"=== 5 USERS ===\nGenerated G is primitive root: {yesOrNo}");
+            Console.WriteLine($"=== 4 USERS ===\nGenerated G is primitive root: {yesOrNo}");
             if (yesOrNo == false) return;
             Console.WriteLine($"Value of n: {n} | Generation time [ms]: {timeN}");
             Console.WriteLine($"Value of g: {g} | Generation time [ms]: {timeG}");
@@ -312,7 +319,7 @@ namespace Calculations
             Console.WriteLine($"Value of w: {iw} | Generation time [ms]: {sw.Elapsed}");
             Console.WriteLine("===========================================");
             #endregion
-    
+
             #region CapitalXYZW_Generate
             BigInteger x, y, z, w, q, k, l, m;
             sw.Start();
